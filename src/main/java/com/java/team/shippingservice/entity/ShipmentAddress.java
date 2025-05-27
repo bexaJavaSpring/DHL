@@ -37,9 +37,6 @@ public class ShipmentAddress {
     @Column(name = "is_residential")
     private boolean isResidential;
 
-    @Enumerated(EnumType.STRING)
-    private PhoneType phoneType;
-
     private String phone;
 
     @Column(name = "is_sms_enabled")
