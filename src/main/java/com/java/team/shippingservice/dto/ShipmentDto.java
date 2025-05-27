@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ShipmentSaveRequest {
+public class ShipmentDto {
+    private Integer id;
     private String name;
     private Integer fromId;
     private Integer toId;
