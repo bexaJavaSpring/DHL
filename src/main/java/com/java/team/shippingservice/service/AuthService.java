@@ -2,8 +2,6 @@ package com.java.team.shippingservice.service;
 
 import com.java.team.shippingservice.dto.LoginRequest;
 import com.java.team.shippingservice.dto.RegisterRequest;
-import com.java.team.shippingservice.entity.NameTitle;
-import com.java.team.shippingservice.entity.PhoneType;
 import com.java.team.shippingservice.entity.User;
 import com.java.team.shippingservice.repository.RoleRepository;
 import com.java.team.shippingservice.repository.UserRepository;
@@ -40,9 +38,7 @@ public class AuthService {
         user.setLastName(request.getLastName());
         user.setPassword(request.getPassword());
         user.setCompany(request.getCompany());
-        user.setTitle(NameTitle.valueOf(request.getNameTitle()));
         user.setPhoneNumber(request.getPhone());
-        user.setPhoneType(PhoneType.valueOf(request.getPhoneType()));
         user.setRoles(Set.of(roleRepository.findByCode("USER")));
         userRepository.save(user);
         return "Successfully registered";
