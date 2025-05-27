@@ -9,15 +9,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "address")
-public class Address {
+@Table(name = "accounts")
+public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
-    private String street;
+    @Column(name = "account_number")
+    private String accountNumber;
 
-    private String city;
+    private String nickName;
 
-    private String state;
+    @Enumerated(EnumType.STRING)
+    private AccountType accountType;
 }

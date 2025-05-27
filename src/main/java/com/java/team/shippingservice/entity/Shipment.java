@@ -16,4 +16,28 @@ public class Shipment {
     private Integer id;
 
     private String name;
+
+    @OneToOne
+    @JoinColumn(name = "from",referencedColumnName = "id")
+    private ShipmentAddress from;
+
+    @OneToOne
+    @JoinColumn(name = "to", referencedColumnName = "id")
+    private ShipmentAddress to;
+
+    @Column(name = "nick_name")
+    private String nickName;
+
+    @Enumerated(EnumType.STRING)
+    private ShipmentType shipmentType;
+
+    private String description;
+
+    private String reference;
+
+    @Column(name = "is_protected")
+    private boolean isProtected;
+
+    @Column(name = "shipment_value")
+    private Double shipmentValue;
 }

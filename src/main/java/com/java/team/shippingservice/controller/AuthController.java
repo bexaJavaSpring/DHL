@@ -30,6 +30,6 @@ public class AuthController {
     public String register(@ModelAttribute RegisterRequest request, Model model){
         String message = service.register(request);
         model.addAttribute("message", message);
-        return "login";
+        return "register";
     }
 }
