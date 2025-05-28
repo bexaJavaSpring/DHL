@@ -1,14 +1,18 @@
 package com.java.team.shippingservice.service;
 
+import com.java.team.shippingservice.config.CustomUserDetails;
+import com.java.team.shippingservice.dto.DataDto;
 import com.java.team.shippingservice.dto.LoginRequest;
 import com.java.team.shippingservice.dto.RegisterRequest;
 import com.java.team.shippingservice.entity.User;
 import com.java.team.shippingservice.repository.RoleRepository;
 import com.java.team.shippingservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -16,31 +20,46 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final CustomUserDetailService customUserDetailService;
+    private final PasswordEncoder encoder;
 
-    public String login(LoginRequest request) {
+    public DataDto<String> login(LoginRequest request) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String message = "";
         User user = userRepository.findByEmail(request.getEmail());
         if (user == null) {
             message = "email doesn't exist";
-            return message;
+            return new DataDto<>(message, false);
         }
-        if (!user.getPassword().equals(request.getPassword())) {
-            message = "password doesn't match";
-            return message;
+        CustomUserDetails userDetails = customUserDetailService.loadUserByUsername(user.getEmail());
+        if (authentication != null && userDetails != null) {
+            if (!encoder.matches(authentication.getName(), userDetails.getPassword())) {
+                message = "password doesn't match";
+                return new DataDto<>(message, false);
+            }
         }
-        return "Successfully logged in";
+        message = "Successfully logged in";
+        return new DataDto<>(message, true);
     }
 
-    public String register(RegisterRequest request) {
+    public DataDto<String> register(RegisterRequest request) {
+        if (userRepository.existsByEmail(request.getEmail())) {
+            return new DataDto<>("Email is already taken", false);
+        }
         User user = new User();
         user.setEmail(request.getEmail());
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
-        user.setPassword(request.getPassword());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setCompany(request.getCompany());
         user.setPhoneNumber(request.getPhone());
-        user.setRoles(Set.of(roleRepository.findByCode("USER")));
+        user.setRole(roleRepository.findByCode("USER"));
         userRepository.save(user);
-        return "Successfully registered";
+        CustomUserDetails userDetails = customUserDetailService.loadUserByUsername(user.getEmail());
+        UsernamePasswordAuthenticationToken authentication =
+                new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return new DataDto<>("Successfully registered", true);
     }
 }
