@@ -33,11 +33,6 @@ public class Shipment {
 
     private String description;
 
-    private String reference;
-
-    @Column(name = "is_protected")
-    private boolean isProtected;
-
     @Column(name = "shipment_value")
     private Double shipmentValue;
 }

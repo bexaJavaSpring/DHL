@@ -19,13 +19,7 @@ public class ShipmentAddress {
 
     private String company;
 
-    private String country;
-
     private String address;
-
-    private String address2;
-
-    private String address3;
 
     @Column(name = "postal_code")
     private String postalCode;
@@ -34,17 +28,5 @@ public class ShipmentAddress {
 
     private String state;
 
-    @Column(name = "is_residential")
-    private boolean isResidential;
-
     private String phone;
-
-    @Column(name = "is_sms_enabled")
-    private boolean isSmsEnabled;
-
-    @Column(name = "tax_id")
-    private String taxId;
-
-    @Column(name = "eori_number")
-    private String eoriNumber;
 }
