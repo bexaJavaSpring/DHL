@@ -1,5 +1,6 @@
 package com.java.team.shippingservice.dto;
 
+import com.java.team.shippingservice.entity.Role;
 import lombok.*;
 
 @AllArgsConstructor
@@ -14,5 +15,5 @@ public class UserInfo {
     private String lastName;
     private String phone;
     private String company;
-    private String role;
+    private Role role;
 }

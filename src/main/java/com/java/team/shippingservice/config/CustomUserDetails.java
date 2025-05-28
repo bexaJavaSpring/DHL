@@ -1,5 +1,6 @@
 package com.java.team.shippingservice.config;
 
+import com.java.team.shippingservice.entity.Role;
 import com.java.team.shippingservice.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,19 +38,28 @@ public class CustomUserDetails implements UserDetails {
     public Integer getId() {
         return user.getId();
     }
+
     public String getEmail() {
         return user.getEmail();
     }
+
     public String getFirstName() {
         return user.getFirstName();
     }
+
     public String getLastName() {
         return user.getLastName();
     }
+
     public String getPhone() {
         return user.getPhoneNumber();
     }
+
     public String getCompany() {
         return user.getCompany();
+    }
+
+    public Role getRole() {
+        return user.getRole();
     }
 }

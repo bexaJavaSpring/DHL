@@ -4,6 +4,7 @@ import com.java.team.shippingservice.config.CustomUserDetails;
 import com.java.team.shippingservice.dto.DataDto;
 import com.java.team.shippingservice.dto.LoginRequest;
 import com.java.team.shippingservice.dto.RegisterRequest;
+import com.java.team.shippingservice.dto.UserInfo;
 import com.java.team.shippingservice.entity.User;
 import com.java.team.shippingservice.repository.RoleRepository;
 import com.java.team.shippingservice.repository.UserRepository;
@@ -61,5 +62,19 @@ public class AuthService {
                 new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         return new DataDto<>("Successfully registered", true);
+    }
+
+    public UserInfo getUserInfo() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        return UserInfo.builder()
+                .userId(userDetails.getId())
+                .firstName(userDetails.getFirstName())
+                .lastName(userDetails.getLastName())
+                .email(userDetails.getEmail())
+                .company(userDetails.getCompany())
+                .phone(userDetails.getPhone())
+                .role(userDetails.getRole())
+                .build();
     }
 }
