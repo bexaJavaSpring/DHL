@@ -46,7 +46,7 @@ public class AuthService {
 
     public DataDto<String> register(RegisterRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
-            return new DataDto<>("Email is already taken", false);
+            return new DataDto<>("Email is already exist", false);
         }
         User user = new User();
         user.setEmail(request.getEmail());

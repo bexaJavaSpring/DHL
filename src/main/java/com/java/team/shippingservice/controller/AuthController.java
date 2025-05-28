@@ -46,6 +46,7 @@ public class AuthController {
     @GetMapping("/logout")
     public String logout(Model model) {
         SecurityContextHolder.getContext().setAuthentication(null);
+        model.addAttribute("message", "You have been logged out");
         return "home";
     }
 }
