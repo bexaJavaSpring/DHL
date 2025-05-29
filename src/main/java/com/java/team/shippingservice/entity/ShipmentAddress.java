@@ -24,6 +24,10 @@ public class ShipmentAddress {
     @Column(name = "postal_code")
     private String postalCode;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "shipment_id", referencedColumnName = "id")
+    private Shipment shipment;
+
     private String city;
 
     private String state;

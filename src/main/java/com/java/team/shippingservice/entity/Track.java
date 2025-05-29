@@ -15,5 +15,6 @@ public class Track {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "track_number")
     private String trackNumber;
 }
