@@ -22,7 +22,7 @@
   </head>
   <body>
     <div class="main-container">
-      <form class="form row sm:column">
+      <form class="form row sm:column" action="/auth/register" method="post" name="form" >
         <div class="col-12 col-md-6">
           <h3 class="form-title mb-3">Your Details</h3>
           <div class="form-double-column-wrapper mb-3">
@@ -63,10 +63,12 @@
               <span class="input-group-text" id="basic-addon1">+998</span>
               <input
                 type="text"
+                name="phone"
                 required
                 class="form-control"
                 aria-label="phoneNumber"
                 aria-describedby="basic-addon1"
+                id="phone"
               />
             </div>
           </div>
@@ -74,14 +76,15 @@
         <div class="col-12 col-md-6">
           <h3 class="form-title mb-3">Create Your Login</h3>
           <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">
+            <label for="email" class="form-label">
               <span>Email address</span>
               <span class="required-symbol">&#10033;</span>
             </label>
             <input
               type="email"
+              name="email"
               class="form-control"
-              id="exampleInputEmail1"
+              id="email"
               aria-describedby="emailHelp"
               required
             />

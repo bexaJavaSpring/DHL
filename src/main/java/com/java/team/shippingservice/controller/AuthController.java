@@ -30,8 +30,8 @@ public class AuthController {
     @PostMapping("/register")
     public String register(@RequestBody RegisterRequest request, Model model) {
         DataDto<String> data = service.register(request);
-        model.addAttribute("message", data);
-        return "register";
+        model.addAttribute("data", data);
+        return "index";
     }
 
     @GetMapping("/me")
@@ -39,7 +39,7 @@ public class AuthController {
     public String me(Model model) {
         DataDto<UserInfo> data = service.getUserInfo();
         model.addAttribute("me", data);
-        return "dashboard";
+        return "index";
     }
 
     @GetMapping(value = "/logout")
