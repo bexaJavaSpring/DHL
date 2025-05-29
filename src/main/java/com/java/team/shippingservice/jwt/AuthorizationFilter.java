@@ -76,7 +76,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer")) {
             return bearerToken.trim().substring(7);
         } else {
-            throw new RuntimeException("token.is.null");
+            throw new RuntimeException("Token is null");
         }
     }
 

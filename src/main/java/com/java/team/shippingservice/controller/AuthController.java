@@ -35,6 +35,7 @@ public class AuthController {
     }
 
     @GetMapping("/me")
+    @PreAuthorize("isAuthenticated()")
     public String me(Model model) {
         DataDto<UserInfo> data = service.getUserInfo();
         model.addAttribute("me", data);

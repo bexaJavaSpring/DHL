@@ -87,9 +87,10 @@ public class AuthService {
     }
 
     public DataDto<UserInfo> getUserInfo() {
-        User user = userRepository.getReferenceById(UserSession.getCurrentUser().getId());
-        if (user == null)
+        Optional<User> optionalUser = userRepository.findById(UserSession.getCurrentUser().getId());
+        if (optionalUser.isEmpty())
             throw new CustomNotFoundException("User not found");
+        User user = optionalUser.get();
         return new DataDto<>(UserInfo.builder()
                 .userId(user.getId())
                 .firstName(user.getFirstName())
