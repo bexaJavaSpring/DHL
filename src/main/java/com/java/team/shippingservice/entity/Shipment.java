@@ -1,5 +1,6 @@
 package com.java.team.shippingservice.entity;
 
+import com.java.team.shippingservice.entity.enums.ShipmentType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,14 +17,6 @@ public class Shipment {
     private Integer id;
 
     private String name;
-
-    @OneToOne
-    @JoinColumn(name = "from",referencedColumnName = "id")
-    private ShipmentAddress from;
-
-    @OneToOne
-    @JoinColumn(name = "to", referencedColumnName = "id")
-    private ShipmentAddress to;
 
     @Column(name = "nick_name")
     private String nickName;
