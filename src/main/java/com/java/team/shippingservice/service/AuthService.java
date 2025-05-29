@@ -1,26 +1,15 @@
 package com.java.team.shippingservice.service;
 
 import com.java.team.shippingservice.config.CustomUserDetails;
-import com.java.team.shippingservice.dto.DataDto;
-import com.java.team.shippingservice.dto.LoginRequest;
-import com.java.team.shippingservice.dto.RegisterRequest;
-import com.java.team.shippingservice.dto.UserInfo;
-import com.java.team.shippingservice.entity.Status;
-import com.java.team.shippingservice.entity.TokenUser;
+import com.java.team.shippingservice.dto.*;
 import com.java.team.shippingservice.entity.User;
 import com.java.team.shippingservice.repository.RoleRepository;
-import com.java.team.shippingservice.repository.TokenUserRepository;
 import com.java.team.shippingservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -31,47 +20,18 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final CustomUserDetailService customUserDetailService;
     private final PasswordEncoder encoder;
-    private final TokenUserRepository tokenUserRepository;
 
-    public DataDto<String> login(LoginRequest request) {
+    public DataDto<LoginResponse> login(LoginRequest request) {
         String message = "";
         CustomUserDetails userDetails = customUserDetailService.loadUserByUsername(request.getEmail());
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
         if (!encoder.matches(request.getPassword(), userDetails.getPassword())) {
             message = "password doesn't match";
-            return new DataDto<>(message, false);
+            return new DataDto<>(LoginResponse.builder().message(message).build(), false);
         }
-        message = "Successfully logged in";
-        Optional<TokenUser> optionalTokenUser = tokenUserRepository.findById(userDetails.getId());
-        TokenUser tokenUser = null;
-        if (optionalTokenUser.isPresent()) {
-            tokenUser = optionalTokenUser.get();
-            String accessToken = generateToken(tokenUser);
-            String refreshToken = generateToken(tokenUser);
-            tokenUser.setAccessToken(accessToken);
-            tokenUser.setRefreshToken(refreshToken);
-            tokenUser.setStatus(Status.ACTIVE);
-            tokenUserRepository.save(tokenUser);
-            return new DataDto<>(message, true);
-        }
-        tokenUser = new TokenUser();
-        tokenUser.setStatus(Status.ACTIVE);
-        tokenUser.setUser(userDetails.getUser());
-        String accessToken = generateToken(tokenUser);
-        String refreshToken = generateToken(tokenUser);
-        tokenUser.setAccessToken(accessToken);
-        tokenUser.setRefreshToken(refreshToken);
-        tokenUserRepository.save(tokenUser);
-        return new DataDto<>(message, true);
-    }
-
-    private String generateToken(TokenUser tokenUser) {
-        String token = UUID.randomUUID().toString();
-        Date expiryDate = new Date(System.currentTimeMillis() + 3600 * 1000);
-        tokenUser.setExpiryDate(expiryDate);
-        tokenUserRepository.save(tokenUser);
-        return token;
+        return new DataDto<>(LoginResponse.builder()
+                .message(message)
+                .userId(userDetails.getId())
+                .build(), true);
     }
 
     public DataDto<String> register(RegisterRequest request) {
@@ -93,17 +53,20 @@ public class AuthService {
         return new DataDto<>("Successfully registered", true);
     }
 
-    public UserInfo getUserInfo() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+    public UserInfo getUserInfo(Integer userId) {
+        Optional<User> byId = userRepository.findById(userId);
+        User user = null;
+        if (byId.isPresent()) {
+            user = byId.get();
+        }
         return UserInfo.builder()
-                .userId(userDetails.getId())
-                .firstName(userDetails.getFirstName())
-                .lastName(userDetails.getLastName())
-                .email(userDetails.getEmail())
-                .company(userDetails.getCompany())
-                .phone(userDetails.getPhone())
-                .role(userDetails.getRole())
+                .userId(user.getId())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .company(user.getCompany())
+                .phone(user.getPhoneNumber())
+                .role(user.getRole())
                 .build();
     }
 }

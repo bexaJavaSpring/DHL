@@ -1,10 +1,7 @@
 package com.java.team.shippingservice.controller;
 
-import com.java.team.shippingservice.dto.DataDto;
-import com.java.team.shippingservice.dto.UserInfo;
+import com.java.team.shippingservice.dto.*;
 import com.java.team.shippingservice.service.AuthService;
-import com.java.team.shippingservice.dto.LoginRequest;
-import com.java.team.shippingservice.dto.RegisterRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,8 +19,8 @@ public class AuthController {
 
     @PostMapping("/login")
     public String login(@RequestBody LoginRequest request, Model model) {
-        DataDto<String> data = service.login(request);
-        model.addAttribute("message", data);
+        DataDto<LoginResponse> data = service.login(request);
+        model.addAttribute("data", data);
         return "login";
     }
 
@@ -35,8 +32,8 @@ public class AuthController {
     }
 
     @GetMapping("/me")
-    public String me(Model model) {
-        UserInfo userInfo = service.getUserInfo();
+    public String me(@RequestParam Integer userId, Model model) {
+        UserInfo userInfo = service.getUserInfo(userId);
         model.addAttribute("me", userInfo);
         return "dashboard";
     }
