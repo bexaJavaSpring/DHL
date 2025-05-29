@@ -22,6 +22,8 @@ public class User implements UserDetails {
 
     private String password;
 
+    private String address;
+
     @Column(name = "first_name")
     private String firstName;
 
@@ -30,9 +32,6 @@ public class User implements UserDetails {
 
     @Column(unique = true)
     private String email;
-
-    @Column(name = "verification_code")
-    private String verificationCode;
 
     private String company;
 

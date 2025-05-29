@@ -48,6 +48,9 @@ public class AuthService {
         if (userRepository.existsByEmail(request.getEmail())) {
             return new DataDto<>("Email is already exist", false);
         }
+        if (!request.getPassword().equalsIgnoreCase(request.getConfirmPassword())) {
+            return new DataDto<>("Passwords do not match", false);
+        }
         User user = new User();
         user.setEmail(request.getEmail());
         user.setFirstName(request.getFirstName());

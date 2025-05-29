@@ -8,10 +8,7 @@ import com.java.team.shippingservice.dto.RegisterRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/auth")
@@ -24,14 +21,14 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute LoginRequest request, Model model) {
+    public String login(@RequestBody LoginRequest request, Model model) {
         DataDto<String> data = service.login(request);
         model.addAttribute("message", data);
         return "login";
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute RegisterRequest request, Model model) {
+    public String register(@RequestBody RegisterRequest request, Model model) {
         DataDto<String> data = service.register(request);
         model.addAttribute("message", data);
         return "register";
