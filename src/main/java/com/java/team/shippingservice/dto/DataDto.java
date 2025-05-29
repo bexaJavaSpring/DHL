@@ -24,4 +24,9 @@ public class DataDto<T> implements Serializable {
         this.data = data;
         this.success = success;
     }
+
+    public DataDto(T data) {
+        this.data = data;
+        this.success = true;
+    }
 }

@@ -2,10 +2,13 @@ package com.java.team.shippingservice.controller;
 
 import com.java.team.shippingservice.dto.*;
 import com.java.team.shippingservice.service.AuthService;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/auth")
@@ -19,7 +22,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public String login(@RequestBody LoginRequest request, Model model) {
-        DataDto<String> data = service.login(request);
+        DataDto<LoginResponse> data = service.login(request);
         model.addAttribute("data", data);
         return "login";
     }
@@ -33,14 +36,16 @@ public class AuthController {
 
     @GetMapping("/me")
     public String me(Model model) {
-        UserInfo userInfo = service.getUserInfo();
-        model.addAttribute("me", userInfo);
+        DataDto<UserInfo> data = service.getUserInfo();
+        model.addAttribute("me", data);
         return "dashboard";
     }
-    @GetMapping("/logout")
+
+    @GetMapping(value = "/logout")
+    @PreAuthorize(value = "isAuthenticated()")
     public String logout(Model model) {
-        SecurityContextHolder.getContext().setAuthentication(null);
-        model.addAttribute("message", "You have been logged out");
-        return "home";
+        DataDto<Boolean> data = service.logout();
+        model.addAttribute("message", data);
+        return "login";
     }
 }
