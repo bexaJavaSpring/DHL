@@ -1,0 +1,39 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.navbar-dhl {
+  background-color: #ffcc00;
+  border-bottom: 1px solid #fff;
+  font-size: 14px;
+}
+
+.navbar-dhl .nav-link {
+  color: #000 !important;
+  font-weight: 500;
+}
+
+.navbar-dhl .dhl-logo {
+  height: 32px;
+  margin-right: 8px;
+}
+
+.language-flag {
+  height: 16px;
+  width: auto;
+  margin-left: 5px;
+}
+
+.auth-links {
+  display: flex;
+  justify-content: flex-end;
+  font-weight: 500;
+}
+
+.auth-links a {
+  margin-left: 20px;
+  color: #000;
+  text-decoration: none;
+}
