@@ -19,7 +19,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public String login(@RequestBody LoginRequest request, Model model) {
-        DataDto<LoginResponse> data = service.login(request);
+        DataDto<String> data = service.login(request);
         model.addAttribute("data", data);
         return "login";
     }
@@ -32,8 +32,8 @@ public class AuthController {
     }
 
     @GetMapping("/me")
-    public String me(@RequestParam Integer userId, Model model) {
-        UserInfo userInfo = service.getUserInfo(userId);
+    public String me(Model model) {
+        UserInfo userInfo = service.getUserInfo();
         model.addAttribute("me", userInfo);
         return "dashboard";
     }
