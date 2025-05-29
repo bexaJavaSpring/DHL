@@ -14,7 +14,6 @@ import com.java.team.shippingservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -88,16 +87,17 @@ public class AuthService {
     }
 
     public DataDto<UserInfo> getUserInfo() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        User user = userRepository.getReferenceById(UserSession.getCurrentUser().getId());
+        if (user == null)
+            throw new CustomNotFoundException("User not found");
         return new DataDto<>(UserInfo.builder()
-                .userId(userDetails.getId())
-                .firstName(userDetails.getFirstName())
-                .lastName(userDetails.getLastName())
-                .email(userDetails.getEmail())
-                .company(userDetails.getCompany())
-                .phone(userDetails.getPhone())
-                .role(userDetails.getRole())
+                .userId(user.getId())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .company(user.getCompany())
+                .phone(user.getPhoneNumber())
+                .role(user.getRole())
                 .build());
     }
 
