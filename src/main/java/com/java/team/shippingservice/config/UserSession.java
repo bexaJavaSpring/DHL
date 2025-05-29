@@ -1,6 +1,6 @@
 package com.java.team.shippingservice.config;
 
-import com.java.team.shippingservice.entity.LanguageCodes;
+import com.java.team.shippingservice.entity.enums.LanguageCodes;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

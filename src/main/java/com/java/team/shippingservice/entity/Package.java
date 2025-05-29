@@ -1,5 +1,7 @@
 package com.java.team.shippingservice.entity;
 
+import com.java.team.shippingservice.entity.enums.PackageStatus;
+import com.java.team.shippingservice.entity.enums.PackageType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

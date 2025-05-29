@@ -4,7 +4,7 @@ import com.java.team.shippingservice.config.CustomAuthenticationProvider;
 import com.java.team.shippingservice.config.CustomUserDetails;
 import com.java.team.shippingservice.config.UserSession;
 import com.java.team.shippingservice.dto.*;
-import com.java.team.shippingservice.entity.Status;
+import com.java.team.shippingservice.entity.enums.Status;
 import com.java.team.shippingservice.entity.TokenUser;
 import com.java.team.shippingservice.entity.User;
 import com.java.team.shippingservice.exception.CustomNotFoundException;
