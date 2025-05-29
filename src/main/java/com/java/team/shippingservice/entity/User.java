@@ -36,15 +36,6 @@ public class User implements UserDetails {
 
     private String company;
 
-    @Column(name = "has_dhl_account")
-    private boolean hasDhlAccount;
-
-    @Column(name = "want_to_apply_dhl_account")
-    private boolean wantToApplyDhlAccount;
-
-    @Column(name = "is_sms_enabled")
-    private boolean isSmsEnabled;
-
     @Column(name = "phone_number")
     private String phoneNumber;
 

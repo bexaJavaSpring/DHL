@@ -17,14 +17,6 @@ public class Shipment {
 
     private String name;
 
-    @OneToOne
-    @JoinColumn(name = "from",referencedColumnName = "id")
-    private ShipmentAddress from;
-
-    @OneToOne
-    @JoinColumn(name = "to", referencedColumnName = "id")
-    private ShipmentAddress to;
-
     @Column(name = "nick_name")
     private String nickName;
 
