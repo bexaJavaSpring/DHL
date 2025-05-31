@@ -12,6 +12,6 @@ public class HomeController {
 
     @GetMapping("/register")
     public String register() {
-        return "/register/register";
+        return "register";
     }
 }
