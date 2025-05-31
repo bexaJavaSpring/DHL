@@ -4,7 +4,11 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,6 +22,8 @@ public class User {
 
     private String password;
 
+    private String address;
+
     @Column(name = "first_name")
     private String firstName;
 
@@ -27,25 +33,12 @@ public class User {
     @Column(unique = true)
     private String email;
 
-    @Column(name = "verification_code")
-    private String verificationCode;
-
     private String company;
-
-    @Column(name = "has_dhl_account")
-    private boolean hasDhlAccount;
-
-    @Column(name = "want_to_apply_dhl_account")
-    private boolean wantToApplyDhlAccount;
-
-    @Column(name = "is_sms_enabled")
-    private boolean isSmsEnabled;
 
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinTable(name = "user_roles", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}
-            , inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
-    protected Set<Role> roles;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id", nullable = false, referencedColumnName = "id")
+    private Role role;
 }
