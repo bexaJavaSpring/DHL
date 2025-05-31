@@ -5,10 +5,7 @@ import com.java.team.shippingservice.service.AuthService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/auth")
@@ -25,14 +22,17 @@ public class AuthController {
         DataDto<LoginResponse> data = service.login(request);
         model.addAttribute("message", "Successfully logged in");
         model.addAttribute("data", data);
-        return "login";
+        return "index";
     }
 
     @PostMapping("/register")
-    public String register(@RequestBody RegisterRequest request, Model model) {
+    public String register(@ModelAttribute RegisterRequest request, Model model) {
         DataDto<String> data = service.register(request);
-        model.addAttribute("data", data);
-        return "index";
+        model.addAttribute("data", data.getData());
+        if(data.isSuccess()) {
+            return "index";
+        }
+        return "register";
     }
 
     @GetMapping("/me")
