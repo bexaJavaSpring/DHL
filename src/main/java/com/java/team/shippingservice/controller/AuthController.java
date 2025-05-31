@@ -18,7 +18,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest request, Model model) {
+    public String login(@ModelAttribute LoginRequest request, Model model) {
         DataDto<LoginResponse> data = service.login(request);
         model.addAttribute("message", "Successfully logged in");
         model.addAttribute("data", data);
@@ -28,7 +28,7 @@ public class AuthController {
     @PostMapping("/register")
     public String register(@ModelAttribute RegisterRequest request, Model model) {
         DataDto<String> data = service.register(request);
-        model.addAttribute("data", data.getData());
+        model.addAttribute("data", data);
         if(data.isSuccess()) {
             return "index";
         }

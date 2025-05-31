@@ -14,4 +14,9 @@ public class HomeController {
     public String register() {
         return "register";
     }
+
+    @GetMapping("/help-support")
+    public String helpSupport() {
+        return "helpSupport";
+    }
 }
