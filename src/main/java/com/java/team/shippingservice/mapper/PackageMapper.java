@@ -9,5 +9,7 @@ public class PackageMapper {
     public PackageDto toDto(Package entity) {
         PackageDto dto = new PackageDto();
         dto.setId(entity.getId());
+        dto.setHeight(entity.getHeight());
+        return dto;
     }
 }
