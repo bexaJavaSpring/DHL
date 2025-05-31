@@ -21,180 +21,184 @@
     />
 </head>
 <body>
-<main class="main-container">
-    <form class="form row sm:column" action="/auth/register" method="post" name="form">
-        <div class="col-12 col-md-6">
-            <h3 class="form-title mb-3">Your Details</h3>
-            <div class="form-double-column-wrapper mb-3">
-                <div>
-                    <label for="firstname" class="form-label">
-                        First Name
-                        <span class="required-symbol">&#10033;</span>
-                    </label>
-                    <input
-                            type="text"
-                            required
-                            id="firstname"
-                            class="form-control"
-                            aria-describedby="emailHelp"
-                    />
-                </div>
-                <div>
-                    <label for="lastname" class="form-label">
-                        <span>Last Name </span>
-                        <span class="required-symbol">&#10033;</span>
-                    </label>
-                    <input type="text" id="lastname" class="form-control" required/>
-                </div>
+<div class="content-wrapper">
+
+    <header class="header">
+        <nav class="navbar navbar-top">
+            <div class="logo">Postal Management</div>
+
+            <div class="nav-link">
+                <a class="nav-link-item" href="#">Help and Support</a>
+                <a class="nav-link-item" href="#">Find a location</a>
             </div>
-            <div class="mb-3">
-                <label for="company" class="form-label">
-                    <span>Company</span>
-                    <span class="required-symbol">&#10033;</span>
-                </label>
-                <input type="text" id="company" class="form-control" required/>
+        </nav>
+        <div class="divider"></div>
+        <nav class="navbar navbar-bottom">
+            <div class="nav-link">
+                <a class="nav-link-item" href="./index.html">Home</a>
+                <a class="nav-link-item" href="#">Ship</a>
+                <a class="nav-link-item" href="#">Track</a>
             </div>
-            <div class="mb-3">
-                <label for="phone" class="form-label">
-                    <span>Phone</span>
-                    <span class="required-symbol">&#10033;</span>
-                </label>
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">+998</span>
-                    <input
-                            type="text"
-                            name="phone"
-                            required
-                            class="form-control"
-                            aria-label="phoneNumber"
-                            aria-describedby="basic-addon1"
-                            id="phone"
-                    />
+            <div class="nav-link">
+                <a class="nav-link-item" href="./register/register.html">Register</a>
+                <a class="nav-link-item" href="#" onclick="loginBtn()">Login</a>
+            </div>
+        </nav>
+    </header>
+    <main class="main-container">
+        <div class="form-container">
+            <form class="form row sm:column" action="/auth/register" method="post" name="form">
+                <div class="col-12 col-md-6">
+                    <h3 class="form-title mb-3">Your Details</h3>
+                    <div class="form-double-column-wrapper mb-3">
+                        <div>
+                            <label for="firstname" class="form-label">
+                                First Name
+                                <span class="required-symbol">&#10033;</span>
+                            </label>
+                            <input
+                                    type="text"
+                                    id="firstname"
+                                    name="firstName"
+                                    class="form-control"
+                                    aria-describedby="emailHelp"
+                                    required
+                            />
+                        </div>
+                        <div>
+                            <label for="lastname" class="form-label">
+                                <span>Last Name </span>
+                                <span class="required-symbol">&#10033;</span>
+                            </label>
+                            <input
+                                    type="text"
+                                    id="lastname"
+                                    class="form-control"
+                                    name="lastName"
+                                    required
+                            />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="company" class="form-label">
+                            <span>Company</span>
+                            <span class="required-symbol">&#10033;</span>
+                        </label>
+                        <input
+                                type="text"
+                                id="company"
+                                class="form-control"
+                                name="company"
+                                required
+                        />
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">
+                            <span>Phone</span>
+                            <span class="required-symbol">&#10033;</span>
+                        </label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">+998</span>
+                            <input
+                                    type="text"
+                                    name="phone"
+                                    class="form-control"
+                                    aria-label="phoneNumber"
+                                    aria-describedby="basic-addon1"
+                                    id="phone"
+                                    required
+                            />
+                        </div>
+                    </div>
                 </div>
-            </div>
+                <div class="col-12 col-md-6">
+                    <h3 class="form-title mb-3">Create Your Login</h3>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">
+                            <span>Email address</span>
+                            <span class="required-symbol">&#10033;</span>
+                        </label>
+                        <input
+                                type="email"
+                                name="email"
+                                class="form-control"
+                                id="email"
+                                aria-describedby="emailHelp"
+                                required
+                        />
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">
+                            <span>Password</span>
+                            <span class="required-symbol">&#10033;</span>
+                        </label>
+                        <input
+                                id="password"
+                                name="password"
+                                type="password"
+                                class="form-control"
+                                required
+                        />
+                    </div>
+                    <div class="mb-3">
+                        <label for="passwordConfirm" class="form-label">
+                            <span>Confirm Password</span>
+                            <span class="required-symbol">&#10033;</span>
+                        </label>
+                        <input
+                                type="password"
+                                class="form-control"
+                                id="passwordConfirm"
+                                name="confirmPassword"
+                                required
+                        />
+                    </div>
+                </div>
+                <div class="w-100 px-3 py-2">
+                    <div class="mb-3">
+                        <h6><strong>Accept Terms</strong></h6>
+
+                        <div class="form-check mb-2">
+                            <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="terms"
+                                    required
+                            />
+                            <label class="form-check-label" for="terms">
+                                I accept the DHL Express
+                                <a href="#" class="text-primary">Terms and Conditions</a> and
+                                <a href="#" class="text-primary"
+                                >Digital Customs Invoice Terms and Conditions</a
+                                >
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="privacy"
+                                    required
+                            />
+                            <label class="form-check-label" for="privacy">
+                                I accept the DHL Express
+                                <a href="#" class="text-primary">Privacy and Cookies Policy</a>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div
+                        class="d-flex justify-content-end justify-content-between px-3 mt-4 w-100"
+                >
+                    <a href="../index.html">Back to Home page</a>
+                    <button type="submit" class="btn btn-success ms-auto px-4 py-2">
+                        Submit
+                    </button>
+                </div>
+            </form>
         </div>
-        <div class="col-12 col-md-6">
-            <h3 class="form-title mb-3">Create Your Login</h3>
-            <div class="mb-3">
-                <label for="email" class="form-label">
-                    <span>Email address</span>
-                    <span class="required-symbol">&#10033;</span>
-                </label>
-                <input
-                        type="email"
-                        name="email"
-                        class="form-control"
-                        id="email"
-                        aria-describedby="emailHelp"
-                        required
-                />
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">
-                    <span>Password</span>
-                    <span class="required-symbol">&#10033;</span>
-                </label>
-                <input
-                        type="password"
-                        class="form-control"
-                        id="exampleInputPassword1"
-                />
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword2" class="form-label">
-                    <span>Confirm Password</span>
-                    <span class="required-symbol">&#10033;</span>
-                </label>
-                <input
-                        type="password"
-                        class="form-control"
-                        id="exampleInputPassword2"
-                />
-            </div>
-        </div>
-        <div class="mt-4 w-100 px-3 py-2">
-            <!-- Promo Emails Checkbox -->
-            <div class="form-check mb-3">
-                <input class="form-check-input" type="checkbox" id="promoEmails"/>
-                <label class="form-check-label" for="promoEmails">
-                    I would like to receive informational emails and promotional
-                    offers from DHL
-                </label>
-            </div>
-
-            <!-- Apply for DHL Account -->
-            <div class="mb-3">
-                <strong>Would you like to apply for a DHL account?</strong>
-                <p class="mb-2">
-                    If your company ships regularly, having an account offers many
-                    benefits – preferential rates, regular billing, shipment
-                    monitoring – and more!
-                </p>
-                <div class="form-check">
-                    <input
-                            class="form-check-input"
-                            type="checkbox"
-                            id="applyAccount"
-                    />
-                    <label class="form-check-label" for="applyAccount">
-                        I'd like to apply for a DHL account
-                    </label>
-                </div>
-            </div>
-
-            <!-- Accept Terms -->
-            <div class="mb-3">
-                <h6><strong>Accept Terms</strong></h6>
-
-                <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" id="terms"/>
-                    <label class="form-check-label" for="terms">
-                        I accept the DHL Express
-                        <a href="#" class="text-primary">Terms and Conditions</a> and
-                        <a href="#" class="text-primary"
-                        >Digital Customs Invoice Terms and Conditions</a
-                        >
-                    </label>
-                </div>
-
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="privacy"/>
-                    <label class="form-check-label" for="privacy">
-                        I accept the DHL Express
-                        <a href="#" class="text-primary">Privacy and Cookies Policy</a>
-                    </label>
-                </div>
-            </div>
-
-            <div
-                    class="d-flex flex-column align-items-center justify-content-center border p-3 mt-4 overflow-auto"
-            >
-                <p class="mb-4">Click or select the <strong>Light Bulb</strong></p>
-                <div class="d-flex justify-content-between">
-                    <i class="fa-solid fa-flag fa-2x px-4"></i>
-                    <i class="fa-solid fa-envelope fa-2x px-4"></i>
-                    <i class="fa-solid fa-print fa-2x px-4"></i>
-                    <i class="fa-solid fa-clock fa-2x px-4"></i>
-                    <i class="fa-solid fa-lightbulb fa-2x px-4"></i>
-                    <i class="fa-solid fa-chart-line fa-2x px-4"></i>
-                    <i class="fa-solid fa-building fa-2x px-4"></i>
-                    <i class="fa-solid fa-paperclip fa-2x px-4"></i>
-                </div>
-                <button class="btn btn-outline-dark mt-4 w-20 mx-auto">
-                    <i class="fa-solid fa-rotate"></i> Refresh
-                </button>
-            </div>
-        </div>
-        <div
-                class="d-flex justify-content-end justify-content-between px-3 mt-4 w-100"
-        >
-            <a href="../index.html">Back to Home page</a>
-            <button type="submit" class="btn btn-success ms-auto px-4 py-2">
-                Submit
-            </button>
-        </div>
-    </form>
-</main>
+    </main>
+</div>
 
 <!-- Script section -->
 <script src="./register.js"></script>
