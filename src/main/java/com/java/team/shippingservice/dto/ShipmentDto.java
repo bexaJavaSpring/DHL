@@ -9,12 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class ShipmentDto {
     private Integer id;
-    private String name;
-    private Integer fromId;
-    private Integer toId;
     private String  nickName;
     private String  description;
     private String shipmentType;
-    private String reference;
     private Double shipmentValue;
 }

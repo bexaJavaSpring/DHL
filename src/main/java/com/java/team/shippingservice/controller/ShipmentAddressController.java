@@ -1,7 +1,9 @@
 package com.java.team.shippingservice.controller;
 
+import com.java.team.shippingservice.dto.DataDto;
 import com.java.team.shippingservice.dto.ShipmentAddressDto;
 import com.java.team.shippingservice.dto.ShipmentAddressSaveRequest;
+import com.java.team.shippingservice.dto.ShipmentListRequestDto;
 import com.java.team.shippingservice.entity.ShipmentAddress;
 import com.java.team.shippingservice.service.ShipmentAddressService;
 import org.springframework.stereotype.Controller;
@@ -21,23 +23,25 @@ public class ShipmentAddressController {
     }
 
     @PostMapping("/create")
-    public String createShipmentAddress(@ModelAttribute ShipmentAddressSaveRequest request, Model model) {
-        String message = service.create(request);
-        model.addAttribute("message", message);
+    public String createShipmentAddress(@ModelAttribute ShipmentListRequestDto request, Model model) {
+        DataDto<List<Integer>> data = service.create(request);
+        model.addAttribute("message", "Shipment Address created successfully");
+        model.addAttribute("newIds", data);
         return "shipment-address";
     }
 
     @PutMapping("/update/{id}")
     public String updateShipmentAddress(@PathVariable Integer id, @ModelAttribute ShipmentAddressSaveRequest request, Model model) {
-        String message = service.update(id, request);
-        model.addAttribute("message", message);
+        DataDto<String> data = service.update(id, request);
+        model.addAttribute("message", "Shipment Address updated successfully");
+        model.addAttribute("updatedId", data);
         return "shipment-address";
     }
 
     @GetMapping("/{id}")
     public String showShipmentAddress(@PathVariable Integer id, Model model) {
-        ShipmentAddressDto one = service.getOne(id);
-        model.addAttribute("one", one);
+        DataDto<ShipmentAddressDto> data = service.getOne(id);
+        model.addAttribute("data", data);
         model.addAttribute("message", "Shipment address with id " + id + " found");
         return "shipment-address";
     }
@@ -52,7 +56,8 @@ public class ShipmentAddressController {
 
     @DeleteMapping("/{id}")
     public String deleteShipmentAddress(@PathVariable Integer id, Model model) {
-        service.delete(id);
+        DataDto<Boolean> data = service.delete(id);
+        model.addAttribute("data", data);
         model.addAttribute("message", "Shipment address with id " + id + " deleted");
         return "shipment-address";
     }

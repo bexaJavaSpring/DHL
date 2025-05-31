@@ -16,8 +16,6 @@ public class Shipment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String name;
-
     @Column(name = "nick_name")
     private String nickName;
 

@@ -20,7 +20,7 @@ public class ShipmentController {
     }
 
     @PostMapping("/create")
-    public String createShipment(@ModelAttribute ShipmentSaveRequest request, Model model) {
+    public String createShipment(@ModelAttribute @Valid ShipmentSaveRequest request, Model model) {
         String message = shipmentService.create(request);
         model.addAttribute("message", message);
         return "shipment";
