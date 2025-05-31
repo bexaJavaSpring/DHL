@@ -1,7 +1,7 @@
 package com.java.team.shippingservice.config;
 
 import com.java.team.shippingservice.exception.ValidationException;
-import com.java.team.shippingservice.service.CustomUserDetailsService;
+import com.java.team.shippingservice.service.CustomUserDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class CustomAuthenticationProvider implements AuthenticationProvider {
-    private final CustomUserDetailsService service;
+    private final CustomUserDetailService service;
     private final PasswordEncoder passwordEncoder;
 
     @Override

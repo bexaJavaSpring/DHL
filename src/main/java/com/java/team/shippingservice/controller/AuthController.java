@@ -23,6 +23,7 @@ public class AuthController {
     @PostMapping("/login")
     public String login(@RequestBody LoginRequest request, Model model) {
         DataDto<LoginResponse> data = service.login(request);
+        model.addAttribute("message", "Successfully logged in");
         model.addAttribute("data", data);
         return "login";
     }

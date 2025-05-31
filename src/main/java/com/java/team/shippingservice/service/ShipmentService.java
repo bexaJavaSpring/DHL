@@ -1,10 +1,12 @@
 package com.java.team.shippingservice.service;
 
+import com.java.team.shippingservice.dto.DataDto;
 import com.java.team.shippingservice.dto.ShipmentDto;
 import com.java.team.shippingservice.dto.ShipmentSaveRequest;
 import com.java.team.shippingservice.entity.Shipment;
 import com.java.team.shippingservice.entity.ShipmentAddress;
 import com.java.team.shippingservice.entity.enums.ShipmentType;
+import com.java.team.shippingservice.exception.CustomNotFoundException;
 import com.java.team.shippingservice.mapper.ShipmentMapper;
 import com.java.team.shippingservice.repository.ShipmentAddressRepository;
 import com.java.team.shippingservice.repository.ShipmentRepository;
@@ -25,7 +27,7 @@ public class ShipmentService {
         this.mapper = mapper;
     }
 
-    public String create(ShipmentSaveRequest request) {
+    public DataDto<String> create(ShipmentSaveRequest request) {
         Shipment shipment = new Shipment();
         shipment.setShipmentType(ShipmentType.valueOf(request.getShipmentType()));
         shipment.setShipmentValue(request.getShipmentValue());
@@ -36,22 +38,41 @@ public class ShipmentService {
             shipmentAddress.setShipment(shipment);
         });
         shipmentAddressRepository.saveAll(allShipmentAddress);
-
+        Shipment save = shipmentRepository.save(shipment);
+        return new DataDto<>(save.getId().toString());
     }
 
-    public String update(ShipmentSaveRequest request, Integer id) {
-        return null;
+    public DataDto<String> update(ShipmentSaveRequest request, Integer id) {
+        Shipment shipment = shipmentRepository.findByIdCustom(id);
+        if (shipment == null) {
+            throw new CustomNotFoundException("Shipment not found");
+        }
+        shipment.setShipmentType(ShipmentType.valueOf(request.getShipmentType()));
+        shipment.setShipmentValue(request.getShipmentValue());
+        shipment.setDescription(request.getDescription());
+        shipment.setNickName(request.getNickName());
+        shipmentRepository.save(shipment);
+        return new DataDto<>(shipment.getId().toString());
     }
 
     public List<ShipmentDto> getAll() {
-        shipmentRepository.findAll().stream().map(mapper::toDto).toList();
+        return shipmentRepository.findAll().stream().map(mapper::toDto).toList();
     }
 
     public ShipmentDto getOne(Integer id) {
-        return null;
+        Shipment shipment = shipmentRepository.findByIdCustom(id);
+        if (shipment == null) {
+            throw new CustomNotFoundException("Shipment not found");
+        }
+        return mapper.toDto(shipment);
     }
 
-    public void delete(Integer id) {
-
+    public DataDto<Boolean> delete(Integer id) {
+        Shipment shipment = shipmentRepository.findByIdCustom(id);
+        if (shipment == null) {
+            throw new CustomNotFoundException("Shipment not found");
+        }
+        shipmentRepository.delete(shipment);
+        return new DataDto<>(true);
     }
 }

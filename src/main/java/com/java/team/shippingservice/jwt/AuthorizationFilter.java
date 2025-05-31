@@ -1,7 +1,7 @@
 package com.java.team.shippingservice.jwt;
 
 import com.java.team.shippingservice.config.CustomUserDetails;
-import com.java.team.shippingservice.service.CustomUserDetailsService;
+import com.java.team.shippingservice.service.CustomUserDetailService;
 import com.java.team.shippingservice.service.JwtTokenService;
 import com.java.team.shippingservice.util.ApiConstants;
 import jakarta.servlet.FilterChain;
@@ -33,7 +33,7 @@ import static com.java.team.shippingservice.config.SecurityConfig.AUTH_WHITELIST
 @Slf4j
 public class AuthorizationFilter extends OncePerRequestFilter {
     private final JwtTokenService jwtTokenService;
-    private final CustomUserDetailsService userDetailsService;
+    private final CustomUserDetailService userDetailService;
     private final LocaleResolver localeResolver;
     @Autowired
     @Qualifier("handlerExceptionResolver")
@@ -48,7 +48,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
                 String token = getTokenFromRequest(request);
                 if (jwtTokenService.isValid(token)) {
                     String username = jwtTokenService.subject(token);
-                    CustomUserDetails customUserDetails = userDetailsService.loadUserByUsername(username);
+                    CustomUserDetails customUserDetails = userDetailService.loadUserByUsername(username);
                     authenticate(request, customUserDetails);
                     log.info("User authenticated by id: {}", customUserDetails.getId());
                 }

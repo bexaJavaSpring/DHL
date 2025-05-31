@@ -1,8 +1,10 @@
 package com.java.team.shippingservice.controller;
 
+import com.java.team.shippingservice.dto.DataDto;
 import com.java.team.shippingservice.dto.ShipmentDto;
 import com.java.team.shippingservice.dto.ShipmentSaveRequest;
 import com.java.team.shippingservice.service.ShipmentService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,15 +23,17 @@ public class ShipmentController {
 
     @PostMapping("/create")
     public String createShipment(@ModelAttribute @Valid ShipmentSaveRequest request, Model model) {
-        String message = shipmentService.create(request);
-        model.addAttribute("message", message);
+        DataDto<String> data = shipmentService.create(request);
+        model.addAttribute("data", data);
+        model.addAttribute("message", "Successfully created");
         return "shipment";
     }
 
     @PutMapping("/update/{id}")
     public String updateShipment(@ModelAttribute ShipmentSaveRequest request, @PathVariable Integer id, Model model) {
-        String message = shipmentService.update(request, id);
-        model.addAttribute("message", message);
+        DataDto<String> data = shipmentService.update(request, id);
+        model.addAttribute("message", "Successfully updated");
+        model.addAttribute("data", data);
         return "shipment";
     }
 
@@ -44,15 +48,16 @@ public class ShipmentController {
     @GetMapping("/{id}")
     public String getOne(@PathVariable Integer id, Model model) {
         ShipmentDto dto = shipmentService.getOne(id);
-        model.addAttribute("message", "Shipment with id " + id + " found");
+        model.addAttribute("message", "Shipment found");
         model.addAttribute("shipment", dto);
         return "shipment";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable Integer id, Model model) {
-        shipmentService.delete(id);
-        model.addAttribute("message", "Shipment with id " + id + " deleted successfully");
+        DataDto<Boolean> data = shipmentService.delete(id);
+        model.addAttribute("data", data);
+        model.addAttribute("message", "Shipment deleted successfully");
         return "shipment";
     }
 }
