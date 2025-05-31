@@ -81,18 +81,18 @@
         <div class="modal-content-custom">
             <span class="close-btn" id="closeModal" onclick="closeModal()">&times;</span>
             <h4 class="modal-title text-center mb-3">Login</h4>
-            <form>
+            <form action="/auth/login" name="form" method="post">
                 <div class="mb-4">
                     <label for="email" class="form-label">
                         <i class="fas fa-envelope"></i> Email
                     </label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter email">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Enter email">
                 </div>
                 <div class="mb-4">
                     <label for="password" class="form-label">
                         <i class="fas fa-lock"></i> Password
                     </label>
-                    <input type="password" class="form-control" id="password" placeholder="Enter password">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Enter password">
                 </div>
                 <button type="submit" class="btn btn-success w-100 mt-3">
                     Login

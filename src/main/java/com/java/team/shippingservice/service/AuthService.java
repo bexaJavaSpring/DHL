@@ -35,7 +35,7 @@ public class AuthService {
                 request.getEmail(), request.getPassword()
         ));
         CustomUserDetails userDetails = (CustomUserDetails) authenticate.getPrincipal();
-        User user = userRepository.getReferenceById(userDetails.getId());
+        User user = userRepository.findByIdCustom(userDetails.getId());
         if (user == null) {
             throw new CustomNotFoundException(userDetails.getId().toString(), "User not found");
         }
@@ -51,7 +51,7 @@ public class AuthService {
             return new DataDto<>(LoginResponse.builder()
                     .access_token(token.getAccessToken())
                     .refresh_token(token.getRefreshToken())
-                    .build(), true);
+                    .build(), "Successfully logged in", true);
         }
         String accessToken = jwtTokenService.generateToken(userDetails.getUsername());
         String refreshToken = jwtTokenService.generateToken(userDetails.getUsername());
@@ -64,7 +64,7 @@ public class AuthService {
         return new DataDto<>(LoginResponse.builder()
                 .access_token(accessToken)
                 .refresh_token(refreshToken)
-                .build(), true);
+                .build(), "Successfully logged in", true);
     }
 
     public DataDto<String> register(RegisterRequest request) {

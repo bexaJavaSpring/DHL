@@ -20,9 +20,8 @@ public class AuthController {
     @PostMapping("/login")
     public String login(@ModelAttribute LoginRequest request, Model model) {
         DataDto<LoginResponse> data = service.login(request);
-        model.addAttribute("message", "Successfully logged in");
         model.addAttribute("data", data);
-        return "index";
+        return "shipment";
     }
 
     @PostMapping("/register")
@@ -48,6 +47,6 @@ public class AuthController {
     public String logout(Model model) {
         DataDto<Boolean> data = service.logout();
         model.addAttribute("message", data);
-        return "login";
+        return "index";
     }
 }
