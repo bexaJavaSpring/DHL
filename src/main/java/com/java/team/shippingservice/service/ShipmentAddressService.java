@@ -44,7 +44,7 @@ public class ShipmentAddressService {
         return new DataDto<>(list);
     }
 
-    public DataDto<String> update(Integer id, ShipmentAddressSaveRequest request) {
+    public DataDto<Integer> update(Integer id, ShipmentAddressSaveRequest request) {
         ShipmentAddress shipmentAddress = shipmentAddressRepository.findByIdAndDeleted(id);
         shipmentAddress.setHolderName(request.getHolderName());
         shipmentAddress.setCompany(request.getCompany());
@@ -53,7 +53,7 @@ public class ShipmentAddressService {
         shipmentAddress.setPostalCode(request.getPostalCode());
         shipmentAddress.setPhone(request.getPhone());
         shipmentAddressRepository.save(shipmentAddress);
-        return new DataDto<>(shipmentAddress.getId().toString());
+        return new DataDto<>(shipmentAddress.getId());
     }
 
     public DataDto<ShipmentAddressDto> getOne(Integer id) {
@@ -71,9 +71,9 @@ public class ShipmentAddressService {
                 .build());
     }
 
-    public List<ShipmentAddressDto> getAll() {
-        return shipmentAddressRepository.findAll()
-                .stream().map(mapper::toDto).toList();
+    public DataDto<List<ShipmentAddressDto>> getAll() {
+        return new DataDto<>(shipmentAddressRepository.findAll()
+                .stream().map(mapper::toDto).toList());
     }
 
     public DataDto<Boolean> delete(Integer id) {

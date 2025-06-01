@@ -4,11 +4,8 @@ import com.java.team.shippingservice.dto.DataDto;
 import com.java.team.shippingservice.dto.ShipmentAddressDto;
 import com.java.team.shippingservice.dto.ShipmentAddressSaveRequest;
 import com.java.team.shippingservice.dto.ShipmentListRequestDto;
-import com.java.team.shippingservice.entity.ShipmentAddress;
 import com.java.team.shippingservice.service.ShipmentAddressService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,35 +26,22 @@ public class ShipmentAddressController {
     }
 
     @PutMapping("/update/{id}")
-    public String updateShipmentAddress(@PathVariable Integer id, @RequestBody ShipmentAddressSaveRequest request, Model model) {
-        DataDto<String> data = service.update(id, request);
-        model.addAttribute("message", "Shipment Address updated successfully");
-        model.addAttribute("updatedId", data);
-        return "shipment-address";
+    public ResponseEntity<DataDto<Integer>> updateShipmentAddress(@PathVariable Integer id, @RequestBody ShipmentAddressSaveRequest request) {
+        return ResponseEntity.ok(service.update(id, request));
     }
 
     @GetMapping("/{id}")
-    public String showShipmentAddress(@PathVariable Integer id, Model model) {
-        DataDto<ShipmentAddressDto> data = service.getOne(id);
-        model.addAttribute("data", data);
-        model.addAttribute("message", "Shipment address with id " + id + " found");
-        return "shipment-address";
+    public ResponseEntity<DataDto<ShipmentAddressDto>> showShipmentAddress(@PathVariable Integer id) {
+        return ResponseEntity.ok(service.getOne(id));
     }
 
     @GetMapping("/all")
-    public String showAllShipmentAddresses(Model model) {
-        List<ShipmentAddressDto> all = service.getAll();
-        model.addAttribute("all", all);
-        model.addAttribute("message", "All shipment addresses found");
-        return "shipment-addresses";
+    public ResponseEntity<DataDto<List<ShipmentAddressDto>>> showAllShipmentAddresses() {
+        return ResponseEntity.ok(service.getAll());
     }
 
     @DeleteMapping("/{id}")
-    public String deleteShipmentAddress(@PathVariable Integer id, Model model) {
-        DataDto<Boolean> data = service.delete(id);
-        model.addAttribute("data", data);
-        model.addAttribute("message", "Shipment address with id " + id + " deleted");
-        return "shipment-address";
+    public ResponseEntity<DataDto<Boolean>> deleteShipmentAddress(@PathVariable Integer id) {
+        return ResponseEntity.ok(service.delete(id));
     }
-
 }

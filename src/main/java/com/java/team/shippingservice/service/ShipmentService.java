@@ -27,7 +27,7 @@ public class ShipmentService {
         this.mapper = mapper;
     }
 
-    public DataDto<String> create(ShipmentSaveRequest request) {
+    public DataDto<Integer> create(ShipmentSaveRequest request) {
         Shipment shipment = new Shipment();
         shipment.setShipmentType(ShipmentType.valueOf(request.getShipmentType()));
         shipment.setShipmentValue(request.getShipmentValue());
@@ -39,10 +39,10 @@ public class ShipmentService {
         });
         shipmentAddressRepository.saveAll(allShipmentAddress);
         Shipment save = shipmentRepository.save(shipment);
-        return new DataDto<>(save.getId().toString());
+        return new DataDto<>(save.getId());
     }
 
-    public DataDto<String> update(ShipmentSaveRequest request, Integer id) {
+    public DataDto<Integer> update(ShipmentSaveRequest request, Integer id) {
         Shipment shipment = shipmentRepository.findByIdCustom(id);
         if (shipment == null) {
             throw new CustomNotFoundException("Shipment not found");
@@ -52,19 +52,19 @@ public class ShipmentService {
         shipment.setDescription(request.getDescription());
         shipment.setNickName(request.getNickName());
         shipmentRepository.save(shipment);
-        return new DataDto<>(shipment.getId().toString());
+        return new DataDto<>(shipment.getId());
     }
 
-    public List<ShipmentDto> getAll() {
-        return shipmentRepository.findAll().stream().map(mapper::toDto).toList();
+    public DataDto<List<ShipmentDto>> getAll() {
+        return new DataDto<>(shipmentRepository.findAll().stream().map(mapper::toDto).toList());
     }
 
-    public ShipmentDto getOne(Integer id) {
+    public DataDto<ShipmentDto> getOne(Integer id) {
         Shipment shipment = shipmentRepository.findByIdCustom(id);
         if (shipment == null) {
             throw new CustomNotFoundException("Shipment not found");
         }
-        return mapper.toDto(shipment);
+        return new DataDto<>(mapper.toDto(shipment));
     }
 
     public DataDto<Boolean> delete(Integer id) {

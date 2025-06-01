@@ -5,7 +5,7 @@ import com.java.team.shippingservice.dto.ShipmentDto;
 import com.java.team.shippingservice.dto.ShipmentSaveRequest;
 import com.java.team.shippingservice.service.ShipmentService;
 import jakarta.validation.Valid;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,42 +22,27 @@ public class ShipmentController {
     }
 
     @PostMapping("/create")
-    public String createShipment(@ModelAttribute @Valid ShipmentSaveRequest request, Model model) {
-        DataDto<String> data = shipmentService.create(request);
-        model.addAttribute("data", data);
-        model.addAttribute("message", "Successfully created");
-        return "shipment";
+    public ResponseEntity<DataDto<Integer>> createShipment(@RequestBody @Valid ShipmentSaveRequest request) {
+        return ResponseEntity.ok(shipmentService.create(request));
     }
 
     @PutMapping("/update/{id}")
-    public String updateShipment(@ModelAttribute ShipmentSaveRequest request, @PathVariable Integer id, Model model) {
-        DataDto<String> data = shipmentService.update(request, id);
-        model.addAttribute("message", "Successfully updated");
-        model.addAttribute("data", data);
-        return "shipment";
+    public ResponseEntity<DataDto<Integer>> updateShipment(@RequestBody ShipmentSaveRequest request, @PathVariable Integer id) {
+        return ResponseEntity.ok(shipmentService.update(request, id));
     }
 
     @GetMapping("/all")
-    public String all(Model model) {
-        List<ShipmentDto> all = shipmentService.getAll();
-        model.addAttribute("message", "All shipments");
-        model.addAttribute("shipments", all);
-        return "shipment";
+    public ResponseEntity<DataDto<List<ShipmentDto>>> all() {
+        return ResponseEntity.ok(shipmentService.getAll());
     }
 
     @GetMapping("/{id}")
-    public String getOne(@PathVariable Integer id, Model model) {
-        ShipmentDto dto = shipmentService.getOne(id);
-        model.addAttribute("message", "Shipment found");
-        model.addAttribute("shipment", dto);
-        return "shipment";
+    public ResponseEntity<DataDto<ShipmentDto>> getOne(@PathVariable Integer id) {
+        return ResponseEntity.ok(shipmentService.getOne(id));
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable Integer id, Model model) {
-        DataDto<Boolean> data = shipmentService.delete(id);
-        model.addAttribute("data", data);
-        model.addAttribute("message", "Shipment deleted successfully");
-        return "shipment";
+    public ResponseEntity<DataDto<Boolean>> delete(@PathVariable Integer id) {
+        return ResponseEntity.ok(shipmentService.delete(id));
     }
 }
