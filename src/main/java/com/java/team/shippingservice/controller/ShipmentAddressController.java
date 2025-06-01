@@ -6,13 +6,14 @@ import com.java.team.shippingservice.dto.ShipmentAddressSaveRequest;
 import com.java.team.shippingservice.dto.ShipmentListRequestDto;
 import com.java.team.shippingservice.entity.ShipmentAddress;
 import com.java.team.shippingservice.service.ShipmentAddressService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/shipment-address")
 public class ShipmentAddressController {
 
@@ -23,15 +24,12 @@ public class ShipmentAddressController {
     }
 
     @PostMapping("/create")
-    public String createShipmentAddress(@ModelAttribute ShipmentListRequestDto request, Model model) {
-        DataDto<List<Integer>> data = service.create(request);
-        model.addAttribute("message", "Shipment Address created successfully");
-        model.addAttribute("newIds", data);
-        return "shipment-address";
+    public ResponseEntity<DataDto<List<Integer>>> createShipmentAddress(@RequestBody ShipmentListRequestDto request) {
+        return ResponseEntity.ok(service.create(request));
     }
 
     @PutMapping("/update/{id}")
-    public String updateShipmentAddress(@PathVariable Integer id, @ModelAttribute ShipmentAddressSaveRequest request, Model model) {
+    public String updateShipmentAddress(@PathVariable Integer id, @RequestBody ShipmentAddressSaveRequest request, Model model) {
         DataDto<String> data = service.update(id, request);
         model.addAttribute("message", "Shipment Address updated successfully");
         model.addAttribute("updatedId", data);

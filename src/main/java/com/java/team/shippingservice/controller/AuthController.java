@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/auth")
 public class AuthController {
 
@@ -24,28 +24,19 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute RegisterRequest request, Model model) {
-        DataDto<String> data = service.register(request);
-        model.addAttribute("data", data);
-        if(data.isSuccess()) {
-            return "index";
-        }
-        return "register";
+    public ResponseEntity<DataDto<Integer>> register(@ModelAttribute RegisterRequest request) {
+       return ResponseEntity.ok(service.register(request));
     }
 
     @GetMapping("/me")
     @PreAuthorize("isAuthenticated()")
-    public String me(Model model) {
-        DataDto<UserInfo> data = service.getUserInfo();
-        model.addAttribute("me", data);
-        return "index";
+    public ResponseEntity<DataDto<UserInfo>> me() {
+        return ResponseEntity.ok(service.getUserInfo());
     }
 
     @GetMapping(value = "/logout")
     @PreAuthorize(value = "isAuthenticated()")
-    public String logout(Model model) {
-        DataDto<Boolean> data = service.logout();
-        model.addAttribute("message", data);
-        return "index";
+    public ResponseEntity<DataDto<Boolean>> logout() {
+        return ResponseEntity.ok(service.logout());
     }
 }

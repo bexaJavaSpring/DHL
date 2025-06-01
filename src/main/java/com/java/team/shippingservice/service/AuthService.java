@@ -8,6 +8,7 @@ import com.java.team.shippingservice.entity.enums.Status;
 import com.java.team.shippingservice.entity.TokenUser;
 import com.java.team.shippingservice.entity.User;
 import com.java.team.shippingservice.exception.CustomNotFoundException;
+import com.java.team.shippingservice.exception.GenericRuntimeException;
 import com.java.team.shippingservice.repository.RoleRepository;
 import com.java.team.shippingservice.repository.TokenUserRepository;
 import com.java.team.shippingservice.repository.UserRepository;
@@ -67,12 +68,12 @@ public class AuthService {
                 .build(), "Successfully logged in", true);
     }
 
-    public DataDto<String> register(RegisterRequest request) {
+    public DataDto<Integer> register(RegisterRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
-            return new DataDto<>("Email is already exist", false);
+            throw new GenericRuntimeException("User is already exist with this email");
         }
         if (!request.getPassword().equalsIgnoreCase(request.getConfirmPassword())) {
-            return new DataDto<>("Passwords do not match", false);
+            throw new GenericRuntimeException("Passwords do not match");
         }
         User user = new User();
         user.setEmail(request.getEmail());
@@ -82,8 +83,8 @@ public class AuthService {
         user.setCompany(request.getCompany());
         user.setPhoneNumber(request.getPhone());
         user.setRole(roleRepository.findByCode("USER"));
-        userRepository.save(user);
-        return new DataDto<>("Successfully registered", true);
+        User save = userRepository.save(user);
+        return new DataDto<>(save.getId());
     }
 
     public DataDto<UserInfo> getUserInfo() {
