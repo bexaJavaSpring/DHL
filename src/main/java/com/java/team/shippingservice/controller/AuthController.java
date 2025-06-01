@@ -2,6 +2,7 @@ package com.java.team.shippingservice.controller;
 
 import com.java.team.shippingservice.dto.*;
 import com.java.team.shippingservice.service.AuthService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,10 +19,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute LoginRequest request, Model model) {
-        DataDto<LoginResponse> data = service.login(request);
-        model.addAttribute("data", data);
-        return "shipment";
+    public ResponseEntity<DataDto<LoginResponse>> login(@ModelAttribute LoginRequest request) {
+        return ResponseEntity.ok(service.login(request));
     }
 
     @PostMapping("/register")
