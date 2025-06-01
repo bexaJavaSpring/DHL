@@ -40,12 +40,10 @@ public enum DocumentDescriptionType {
     TRANSPARENCY("Transparencies"),
     UNACTIVATED_CREDIT_CARD("Unactivated Credit/Debit/ATM Card"),
     VISA_APPLICATION("Visa applications"),
-
-
     ;
-    private String descriptionEn;
+    private final String descriptionEn;
 
-    private DocumentDescriptionType(String descriptionEn) {
+    DocumentDescriptionType(String descriptionEn) {
         this.descriptionEn = descriptionEn;
     }
 }

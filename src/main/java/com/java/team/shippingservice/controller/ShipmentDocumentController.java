@@ -1,6 +1,7 @@
 package com.java.team.shippingservice.controller;
 
 import com.java.team.shippingservice.entity.ShipmentDocument;
+import com.java.team.shippingservice.entity.enums.DocumentDescriptionType;
 import com.java.team.shippingservice.service.ShipmentDocumentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ public class ShipmentDocumentController {
     @PostMapping("/save")
     public String save(@ModelAttribute ShipmentDocument request, Model model) {
         String message = service.save(request).getData();
+        model.addAttribute("descriptions", DocumentDescriptionType.values());
         model.addAttribute("message", message);
         return "shipment-document";
     }
@@ -28,6 +30,7 @@ public class ShipmentDocumentController {
     @PutMapping("/update/{id}")
     public String update(@ModelAttribute ShipmentDocument request, Model model) {
         String message = service.update(request).getData();
+        model.addAttribute("descriptions", DocumentDescriptionType.values());
         model.addAttribute("message", message);
         return "shipment-document";
     }

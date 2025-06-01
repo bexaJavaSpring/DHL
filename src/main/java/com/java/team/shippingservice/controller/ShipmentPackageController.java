@@ -2,6 +2,7 @@ package com.java.team.shippingservice.controller;
 
 import com.java.team.shippingservice.entity.ShipmentDocument;
 import com.java.team.shippingservice.entity.ShipmentPackage;
+import com.java.team.shippingservice.entity.enums.UnitType;
 import com.java.team.shippingservice.service.ShipmentPackageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,7 @@ public class ShipmentPackageController {
     @PostMapping("/save")
     public String save(@ModelAttribute ShipmentPackage request, Model model) {
         String message = service.save(request).getData();
+        model.addAttribute("units", UnitType.values());
         model.addAttribute("message", message);
         return "shipment-package";
     }
@@ -29,6 +31,7 @@ public class ShipmentPackageController {
     @PutMapping("/update/{id}")
     public String update(@ModelAttribute ShipmentPackage request, Model model) {
         String message = service.update(request).getData();
+        model.addAttribute("units", UnitType.values());
         model.addAttribute("message", message);
         return "shipment-package";
     }
