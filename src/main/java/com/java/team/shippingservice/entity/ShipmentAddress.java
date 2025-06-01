@@ -1,5 +1,6 @@
 package com.java.team.shippingservice.entity;
 
+import com.java.team.shippingservice.entity.enums.ShipmentAddressType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,4 +34,6 @@ public class ShipmentAddress {
     private String state;
 
     private String phone;
+
+    private ShipmentAddressType type;
 }
