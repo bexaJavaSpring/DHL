@@ -22,12 +22,12 @@ public class PackageController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<DataDto<PackageDto>> create(@RequestBody PackageSaveRequest request) {
+    public ResponseEntity<DataDto<Integer>> create(@RequestBody PackageSaveRequest request) {
         return ResponseEntity.ok(service.create(request));
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<DataDto<PackageDto>> update(@PathVariable Integer id, @RequestBody PackageSaveRequest request) {
+    public ResponseEntity<DataDto<Integer>> update(@PathVariable Integer id, @RequestBody PackageSaveRequest request) {
         return ResponseEntity.ok(service.update(id, request));
     }
 
