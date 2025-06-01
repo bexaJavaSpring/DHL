@@ -1,13 +1,11 @@
 package com.java.team.shippingservice.service;
 
 import com.java.team.shippingservice.dto.DataDto;
-import com.java.team.shippingservice.dto.ShipmentDto;
 import com.java.team.shippingservice.entity.Shipment;
 import com.java.team.shippingservice.repository.ShipmentRepository;
 import com.java.team.shippingservice.util.NumberUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 @Service
@@ -57,4 +55,5 @@ public class ShipmentService {
             return;
         shipmentRepository.deleteById(id);
     }
+
 }
