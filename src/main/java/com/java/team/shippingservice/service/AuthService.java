@@ -82,7 +82,7 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setCompany(request.getCompany());
         user.setPhoneNumber(request.getPhone());
-        user.setRole(roleRepository.findByCode("USER"));
+        user.setRole(roleRepository.findByCode("ROLE_USER"));
         User save = userRepository.save(user);
         return new DataDto<>(save.getId());
     }
