@@ -1,22 +1,22 @@
-#version: '3.8'
-#
-#services:
-#  db:
-#    image: postgres:17
-#    environment:
-#      POSTGRES_DB: postal_db
-#      POSTGRES_USER: postgres
-#      POSTGRES_PASSWORD: bexa
-#    ports:
-#      - "5432:5432"
-#
-#  app:
-#    build: .
-#    depends_on:
-#      - db
-#    environment:
-#      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/postal_db
-#      SPRING_DATASOURCE_USERNAME: postgres
-#      SPRING_DATASOURCE_PASSWORD: bexa
-#    ports:
-#      - "7777:7777"
+version: '3.8'
+
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: postal_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: bexa
+    ports:
+      - "5432:5432"
+
+  app:
+    build: .
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/postal_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: bexa
+    ports:
+      - "7777:7777"
