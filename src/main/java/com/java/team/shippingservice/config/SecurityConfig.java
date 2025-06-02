@@ -36,8 +36,7 @@ public class SecurityConfig {
             "/v3",
             "/webjars/**",
             "/webjars",
-            "/auth/login",
-            "/auth/register"
+            "/auth/**",
     };
 
     @Bean
