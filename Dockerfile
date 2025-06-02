@@ -1,25 +1,27 @@
-#Stage 1: Prepared Stage
-FROM maven:openjdk as prepared
-ENV APP_HOME=/opt/DHL
+# Stage 1: Build the application
+FROM maven:3.9.6-eclipse-temurin-17 AS build
+ENV APP_HOME=/DHL
 
-# Set the working directory
 WORKDIR $APP_HOME
 
-# Copy only the necessary files from the build stage
-COPY src $APP_HOME/src
-COPY pom.xml $APP_HOME
+# Copy source code and pom.xml
+COPY pom.xml .
+COPY src ./src
 
-RUN mvn clean package
+# Build the application
+RUN mvn clean package -DskipTests
 
-#Stage 2: Build Stage
-FROM prepared as build
-ENV APP_HOME=/opt/DHL
+# Stage 2: Create a minimal runtime image
+FROM eclipse-temurin:17-jre AS runtime
+ENV APP_HOME=/DHL
 
-# Set the working directory
 WORKDIR $APP_HOME
-COPY --from=prepared $APP_HOME/target/shipping-service-0.0.1-SNAPSHOT.jar $APP_HOME
-#
+
+# Copy the JAR from the build stage
+COPY --from=build $APP_HOME/target/shipping-service-0.0.1-SNAPSHOT.jar $APP_HOME/app.jar
+
+# Expose the application port
 EXPOSE 7777
 
-# Specify the command to run on container start
-CMD ["java", "-jar", "shipping-service-0.0.1-SNAPSHOT.jar"]
+# Run the application
+CMD ["java", "-jar", "app.jar"]
