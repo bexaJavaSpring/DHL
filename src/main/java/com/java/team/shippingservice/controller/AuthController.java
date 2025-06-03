@@ -49,4 +49,10 @@ public class AuthController {
         model.addAttribute("message", data);
         return "index";
     }
+
+    @PostMapping(value = "/next")
+    public String next(@ModelAttribute AddressDto dto, Model model) {
+        model.addAttribute("data", dto);
+        return "next";
+    }
 }
