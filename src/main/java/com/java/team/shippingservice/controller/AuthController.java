@@ -17,12 +17,12 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<DataDto<LoginResponse>> login(@ModelAttribute LoginRequest request) {
+    public ResponseEntity<DataDto<LoginResponse>> login(@RequestBody LoginRequest request) {
         return ResponseEntity.ok(service.login(request));
     }
 
     @PostMapping("/register")
-    public ResponseEntity<DataDto<Integer>> register(@ModelAttribute RegisterRequest request) {
+    public ResponseEntity<DataDto<Integer>> register(@RequestBody RegisterRequest request) {
        return ResponseEntity.ok(service.register(request));
     }
 
