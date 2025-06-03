@@ -1,11 +1,15 @@
 package com.java.team.shippingservice.controller;
 
-import com.java.team.shippingservice.dto.*;
-import com.java.team.shippingservice.service.AuthService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.java.team.shippingservice.dto.*;
+import com.java.team.shippingservice.service.AuthService;
 
 @Controller
 @RequestMapping("/auth")
@@ -21,7 +25,7 @@ public class AuthController {
     public String login(@ModelAttribute LoginRequest request, Model model) {
         DataDto<LoginResponse> data = service.login(request);
         model.addAttribute("data", data);
-        return "shipment";
+        return "shipmentActions";
     }
 
     @PostMapping("/register")

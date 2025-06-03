@@ -6,7 +6,7 @@
     <title>Home</title>
 
     <!-- ✅ Correct way to link local CSS in Thymeleaf -->
-    <link rel="stylesheet" th:href="@{/style.css}" />
+    <link rel="stylesheet" th:href="@{/style.css}"/>
 
     <!-- ✅ External Font Awesome (only once) -->
     <link
@@ -27,8 +27,7 @@
     <nav class="navbar navbar-top">
         <div class="logo">Postal Management</div>
         <div class="nav-link">
-            <a class="nav-link-item" href="#">Help and Support</a>
-            <a class="nav-link-item" href="#">Find a location</a>
+            <a class="nav-link-item" href="/help-support">Help and Support</a>
         </div>
     </nav>
     <div class="divider"></div>
@@ -92,7 +91,8 @@
                     <label for="password" class="form-label">
                         <i class="fas fa-lock"></i> Password
                     </label>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="Enter password">
+                    <input type="password" class="form-control" name="password" id="password"
+                           placeholder="Enter password">
                 </div>
                 <button type="submit" class="btn btn-success w-100 mt-3">
                     Login

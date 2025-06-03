@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MyDHL+ Dashboard</title>
+    <link rel="stylesheet" href="../static/shipmentActions/style.css">
+</head>
+<body>
+<header class="header">
+    <nav class="navbar navbar-top">
+        <div class="logo">Postal Management</div>
+        <div class="nav-link">
+            <a class="nav-link-item" href="/help-support">Help and Support</a>
+        </div>
+    </nav>
+    <div class="divider"></div>
+    <nav class="navbar navbar-bottom">
+        <div class="nav-link">
+            <a class="nav-link-item" href="/home">Home</a>
+            <a class="nav-link-item" href="#">Ship</a>
+            <a class="nav-link-item" href="./index.html">Track</a>
+        </div>
+        <div class="nav-link">
+            <a class="nav-link-item" href="/register">Register</a>
+            <a class="nav-link-item" href="#" onclick="loginBtn()">Login</a>
+        </div>
+    </nav>
+</header>
+<div class="container">
+    <h1>Welcome to MyDHL+</h1>
+    <div class="shipment-container">
+        <form class="form" action="/auth/next" method="post">
+            <div class="row">
+                <div class="field-group">
+                    <label for="from-country">Country/Territory</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="from-country" value="Uzbekistan">
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label for="from-name">From</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="from-name" placeholder="Enter your address">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="field-group">
+                    <label for="to-country">Country/Territory</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="to-country">
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label for="to-address">To</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="to-address" placeholder="Enter receiver address">
+                    </div>
+                </div>
+            </div>
+            <div class="next-btn">
+                <button type="button">Next</button>
+            </div>
+        </form>
+    </div>
+    <div class="main-content">
+        <div class="left-panel">
+            <section>
+                <h2>Shipments Requiring Action</h2>
+                <div class="my-shipments">
+                    <h3>My Shipments</h3>
+                    <div class="box">No shipments requiring your action</div>
+                </div>
+            </section>
+            <section>
+                <h2>In Transit and Ready to Ship</h2>
+                <div class="my-shipments">
+                    <h3>My Shipments</h3>
+                    <div class="box">No undelivered shipments currently submitted to DHL</div>
+                </div>
+            </section>
+        </div>
+        <div class="right-panel">
+            <section>
+                <h3>My Shipments</h3>
+                <a href="#">View All Shipments</a>
+            </section>
+            <section>
+                <h3>Track</h3>
+                <input type="text" placeholder="Enter up to 10 numbers, separated by a comma or return">
+                <button type="button">Track</button>
+            </section>
+            <section>
+                <h3>My Pickups</h3>
+                <p>Upcoming: No pickups</p>
+                <p>Previous Pickups: No pickups</p>
+                <a href="#">View All</a>
+            </section>
+            <section>
+                <h3>Quick Links</h3>
+                <button type="button">Add or Edit Quick Links</button>
+            </section>
+        </div>
+    </div>
+</div>
+</body>
+</html>
