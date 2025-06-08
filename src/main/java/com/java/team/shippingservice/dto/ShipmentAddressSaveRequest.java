@@ -18,5 +18,5 @@ public class ShipmentAddressSaveRequest {
     private String state;
     private String email;
     private String phone;
-    private String type;
+    private String addressType;
 }

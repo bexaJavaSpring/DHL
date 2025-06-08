@@ -1,10 +1,7 @@
 package com.java.team.shippingservice.service;
 
+import com.java.team.shippingservice.dto.*;
 import com.java.team.shippingservice.mapper.ShipmentAddressMapper;
-import com.java.team.shippingservice.dto.DataDto;
-import com.java.team.shippingservice.dto.ShipmentAddressDto;
-import com.java.team.shippingservice.dto.ShipmentAddressSaveRequest;
-import com.java.team.shippingservice.dto.ShipmentListRequestDto;
 import com.java.team.shippingservice.entity.ShipmentAddress;
 import com.java.team.shippingservice.entity.enums.AddressType;
 import com.java.team.shippingservice.repository.ShipmentAddressRepository;
@@ -24,8 +21,8 @@ public class ShipmentAddressService {
         this.mapper = mapper;
     }
 
-    public DataDto<List<Integer>> create(ShipmentListRequestDto dto) {
-        List<Integer> list = new ArrayList<>();
+    public DataDto<ShipmentAddressResponse> create(ShipmentListRequestDto dto) {
+        ShipmentAddressResponse response = new ShipmentAddressResponse();
         if (dto.getList().isEmpty()) {
             for (ShipmentAddressSaveRequest request : dto.getList()) {
                 ShipmentAddress shipmentAddress = new ShipmentAddress();
@@ -34,14 +31,18 @@ public class ShipmentAddressService {
                 shipmentAddress.setEmail(request.getEmail());
                 shipmentAddress.setCity(request.getCity());
                 shipmentAddress.setState(request.getState());
-                shipmentAddress.setAddressType(AddressType.valueOf(request.getType()));
+                shipmentAddress.setAddressType(AddressType.valueOf(request.getAddressType()));
                 shipmentAddress.setPostalCode(request.getPostalCode());
                 shipmentAddress.setPhone(request.getPhone());
                 ShipmentAddress save = shipmentAddressRepository.save(shipmentAddress);
-                list.add(save.getId());
+                if (request.getAddressType().equals(AddressType.FROM)) {
+                    response.setFromId(save.getId());
+                } else if (request.getAddressType().equals(AddressType.TO)) {
+                    response.setToId(save.getId());
+                }
             }
         }
-        return new DataDto<>(list);
+        return new DataDto<>(response);
     }
 
     public DataDto<Integer> update(Integer id, ShipmentAddressSaveRequest request) {
