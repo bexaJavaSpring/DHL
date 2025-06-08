@@ -12,8 +12,6 @@ import lombok.Setter;
 public class PackageSaveRequest {
     private String packageType;
     private Integer shipmentId;
-    private Double totalShipmentWeight;
-    private Long numberOfPackages;
     private Double quantity;
     private String status;
     private Double weight;

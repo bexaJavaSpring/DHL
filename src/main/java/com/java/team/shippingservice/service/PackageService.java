@@ -32,8 +32,6 @@ public class PackageService {
         packages.setType(PackageType.valueOf(request.getPackageType()));
         packages.setWeight(request.getWeight());
         packages.setQuantity(request.getQuantity());
-        packages.setTotalShipmentWeight(request.getTotalShipmentWeight());
-        packages.setNumberOfPackages(request.getNumberOfPackages());
         packages.setWidth(request.getWidth());
         packages.setHeight(request.getHeight());
         packages.setLength(request.getLength());
@@ -55,8 +53,6 @@ public class PackageService {
         packages.setType(PackageType.valueOf(request.getPackageType()));
         packages.setWeight(request.getWeight());
         packages.setQuantity(request.getQuantity());
-        packages.setTotalShipmentWeight(request.getTotalShipmentWeight());
-        packages.setNumberOfPackages(request.getNumberOfPackages());
         packages.setWidth(request.getWidth());
         packages.setHeight(request.getHeight());
         packages.setLength(request.getLength());

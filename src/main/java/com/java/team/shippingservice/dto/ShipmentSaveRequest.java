@@ -16,6 +16,5 @@ public class ShipmentSaveRequest {
     private String  nickName;
     private String  description;
     private String shipmentType;
-    private String reference;
     private Double shipmentValue;
 }
